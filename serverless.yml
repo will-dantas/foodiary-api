@@ -12,6 +12,10 @@ provider:
 package:
   individually: true
 
+custom:
+  cognito:
+    PollName: ${self:service}-${self:provider.stage}-UserPool
+
 build:
   esbuild:
     configFile: ./esbuild.config.mjs
