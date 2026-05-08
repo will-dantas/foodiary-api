@@ -1,7 +1,7 @@
-import { HelloController } from "@application/controllers/HelloController";
+import { SingUpController as SignUpController } from "@application/controllers/auth/SignUpController";
 import { Registry } from "@kernel/di/Registry";
 import { lambdaHttpAdapter } from "@main/adapters/lambdaHttpAdapter";
 
-const controller = Registry.getInstance().resolve(HelloController);
+const controller = Registry.getInstance().resolve(SignUpController);
 
 export const handler = lambdaHttpAdapter(controller);
