@@ -20,6 +20,15 @@ export class AccountItem {
     });
   }
 
+  static toEntity(accountItem: AccountItem.ItemType) {
+    return new Account({
+      id: accountItem.id,
+      email: accountItem.email,
+      externalId: accountItem.externalId,
+      createdAt: new Date(accountItem.createdAt),
+    });
+  }
+
   static getPK(accountId: string): AccountItem.keys["PK"] {
     return `ACCOUNT#${accountId}`;
   }
@@ -36,7 +45,7 @@ export class AccountItem {
     return `ACCOUNT#${email}`;
   }
 
-  toItem(): AccountItem.Item {
+  toItem(): AccountItem.ItemType {
     return {
       ...this.keys,
       ...this.attr,
@@ -60,7 +69,7 @@ export namespace AccountItem {
     createdAt: string;
   };
 
-  export type Item = keys & Attributes & {
+  export type ItemType = keys & Attributes & {
     type: 'Account';
   };
 }
