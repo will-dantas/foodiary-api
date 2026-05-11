@@ -5,6 +5,7 @@ import { HttpError } from "@application/erros/http/HttpError";
 import { Controller } from "@application/contracts/Controller";
 import { lambdaErrorResponse } from "@main/utils/lambdaErrorResponse";
 import { lambdaBodyParser } from "@main/utils/lambdaBodyParser";
+import { ApplicationError } from "@application/erros/application/ApplicationError";
 
 
 export function lambdaHttpAdapter(controller: Controller<unknown>) {
@@ -39,6 +40,14 @@ export function lambdaHttpAdapter(controller: Controller<unknown>) {
 
       if (error instanceof HttpError) {
         return lambdaErrorResponse(error);
+      }
+
+      if (error instanceof ApplicationError) {
+        return lambdaErrorResponse({
+          statusCode: error.statusCode ?? 400,
+          code: error.code,
+          message: error.message,
+        });
       }
 
       return lambdaErrorResponse({
