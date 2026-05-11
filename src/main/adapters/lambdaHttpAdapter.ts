@@ -1,5 +1,5 @@
 import { ZodError } from "zod";
-import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
+import { APIGatewayProxyEventV2, APIGatewayProxyEventV2WithJWTAuthorizer, APIGatewayProxyResultV2 } from "aws-lambda";
 import { ErrorCode } from "@application/erros/ErrorCode";
 import { HttpError } from "@application/erros/http/HttpError";
 import { Controller } from "@application/contracts/Controller";
@@ -7,9 +7,10 @@ import { lambdaErrorResponse } from "@main/utils/lambdaErrorResponse";
 import { lambdaBodyParser } from "@main/utils/lambdaBodyParser";
 import { ApplicationError } from "@application/erros/application/ApplicationError";
 
+type Event = APIGatewayProxyEventV2 | APIGatewayProxyEventV2WithJWTAuthorizer;
 
 export function lambdaHttpAdapter(controller: Controller<unknown>) {
-  return async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
+  return async (event: Event): Promise<APIGatewayProxyResultV2> => {
     try {
       const body = lambdaBodyParser(event.body);
       const params = event.pathParameters ?? {};
