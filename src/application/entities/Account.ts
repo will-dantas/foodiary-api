@@ -3,7 +3,7 @@ import KSUID from "ksuid";
 export class Account {
   readonly id: string;
   readonly email: string;
-  externalId: string;
+  externalId: string | undefined;
   readonly createdAt: Date;
 
   constructor(attr: Account.Attributes) {
@@ -17,7 +17,7 @@ export class Account {
 export namespace Account {
   export type Attributes = {
     email: string;
-    externalId: string;
+    externalId?: string;
     id?: string;
     createdAt?: Date;
   };
