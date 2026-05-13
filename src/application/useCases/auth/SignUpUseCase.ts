@@ -1,6 +1,6 @@
 import { Account } from "@application/entities/Account";
-import { EmailAlreadyInUse } from "@application/erros/application/EmailAlreadyInUse";
-import { AccountRepository } from "@infra/databese/dynamo/repositories/AccountRepository";
+import { EmailAlreadyInUse } from "@application/errors/application/EmailAlreadyInUse";
+import { AccountRepository } from "@infra/database/dynamo/repositories/AccountRepository";
 import { AuthGateway } from "@infra/gateways/AuthGateway";
 import { Injectable } from "@kernel/decorators/Injectable";
 
