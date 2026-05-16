@@ -1,4 +1,4 @@
-import { InvalidCredentials } from "@application/erros/application/InvalidCredentials";
+import { InvalidCredentials } from "@application/errors/application/InvalidCredentials";
 import { AuthGateway } from "@infra/gateways/AuthGateway";
 import { Injectable } from "@kernel/decorators/Injectable";
 

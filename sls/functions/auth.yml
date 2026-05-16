@@ -26,8 +26,15 @@ forgotPassword:
       method: POST
       path: /auth/forgot-password
 
+confirmForgotPassword:
+  handler: src/main/functions/auth/confirmForgotPassword.handler
+  events:
+  - httpApi:
+      method: POST
+      path: /auth/forgot-password/confirm
+
 preSignUpTrigger:
-  handler: src/main/functions/auth/preSignUpTrigger.handler
+  handler: src/main/functions/auth/cognito/preSignUpTrigger.handler
   events:
     - cognitoUserPool:
         pool: ${self:custom.cognito.PollName}
@@ -39,4 +46,13 @@ preSignUpTrigger:
 # See UserPool.yml for configuration
 # Do not change this function name, it is referenced in the UserPool.yml file
 preTokenGenerationTrigger:
-  handler: src/main/functions/auth/preTokenGenerationTrigger.handler
+  handler: src/main/functions/auth/cognito/preTokenGenerationTrigger.handler
+
+customMessageTrigger:
+  handler: src/main/functions/auth/cognito/customMessageTrigger.handler
+  events:
+    - cognitoUserPool:
+        pool: ${self:custom.cognito.PollName}
+        trigger: CustomMessage
+        existing: true
+        forceDeploy: true

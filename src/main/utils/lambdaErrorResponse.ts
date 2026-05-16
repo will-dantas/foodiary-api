@@ -1,4 +1,4 @@
-import { ErrorCode } from "@application/erros/ErrorCode";
+import { ErrorCode } from "@application/errors/ErrorCode";
 
 interface lambdaErrorResponseParams {
   statusCode: number;
