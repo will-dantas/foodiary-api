@@ -14,8 +14,8 @@ export class SingUpController extends Controller<'public', SingUpController.Resp
   }
 
   protected override async handle({ body }: Controller.Request<'public', SingUpBody>): Promise<Controller.Response<SingUpController.Response>> {
-    const { account } = body;
-    const { accessToken, refreshToken } = await this.signUpUseCase.execute(account);
+    const { account, profile } = body;
+    const { accessToken, refreshToken } = await this.signUpUseCase.execute({ account, profile });
 
     return {
       statusCode: 201,
