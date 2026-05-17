@@ -1,9 +1,9 @@
 export class Profile {
-  readonly accourId: string;
+  readonly accountId: string;
 
   name: string;
 
-  birhDate: Date;
+  birthDate: Date;
 
   gender: Profile.Gender;
 
@@ -16,9 +16,9 @@ export class Profile {
   readonly createdAt: Date;
 
   constructor(attr: Profile.Attributes) {
-    this.accourId = attr.accourId;
+    this.accountId = attr.accountId;
     this.name = attr.name;
-    this.birhDate = attr.birhDate;
+    this.birthDate = attr.birthDate;
     this.gender = attr.gender;
     this.height = attr.height;
     this.weight = attr.weight;
@@ -29,9 +29,9 @@ export class Profile {
 
 export namespace Profile {
   export type Attributes = {
-    accourId: string;
+    accountId: string;
     name: string;
-    birhDate: Date;
+    birthDate: Date;
     gender: Profile.Gender;
     height: number;
     weight: number;
