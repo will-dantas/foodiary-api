@@ -22,7 +22,7 @@ export class GoalItem {
   static toEntity(goalItem: GoalItem.ItemType) {
     return new Goal({
       accountId: goalItem.accountId,
-      colories: goalItem.colories,
+      calories: goalItem.calories,
       proteins: goalItem.proteins,
       carbohydrates: goalItem.carbohydrates,
       fats: goalItem.fat,
@@ -56,7 +56,7 @@ export namespace GoalItem {
 
   export type Attributes = {
     accountId: string;
-    colories: number;
+    calories: number;
     proteins: number;
     carbohydrates: number;
     fat: number;
