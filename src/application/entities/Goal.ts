@@ -7,7 +7,7 @@ export class Goal {
 
   carbohydrates: number;
 
-  fat: number;
+  fats: number;
 
   readonly createdAt: Date;
 
@@ -16,7 +16,7 @@ export class Goal {
     this.calories = attr.calories;
     this.carbohydrates = attr.carbohydrates;
     this.proteins = attr.proteins;
-    this.fat = attr.fats;
+    this.fats = attr.fats;
     this.createdAt = attr.createdAt ?? new Date();
   }
 }
