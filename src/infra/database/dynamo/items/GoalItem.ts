@@ -2,7 +2,7 @@ import { Goal } from "@application/entities/Goal";
 import { AccountItem } from "./AccountItem";
 
 export class GoalItem {
-  private readonly type = 'Goal';
+  static readonly type = 'Goal';
   private readonly keys: GoalItem.keys;
 
   constructor(private readonly attr: GoalItem.Attributes) {
@@ -22,10 +22,10 @@ export class GoalItem {
   static toEntity(goalItem: GoalItem.ItemType) {
     return new Goal({
       accountId: goalItem.accountId,
-      colories: goalItem.colories,
+      calories: goalItem.calories,
       proteins: goalItem.proteins,
       carbohydrates: goalItem.carbohydrates,
-      fats: goalItem.fat,
+      fats: goalItem.fats,
       createdAt: new Date(goalItem.createdAt),
     });
   }
@@ -43,7 +43,7 @@ export class GoalItem {
     return {
       ...this.keys,
       ...this.attr,
-      type: this.type,
+      type: GoalItem.type,
     };
   }
 }
@@ -56,10 +56,10 @@ export namespace GoalItem {
 
   export type Attributes = {
     accountId: string;
-    colories: number;
+    calories: number;
     proteins: number;
     carbohydrates: number;
-    fat: number;
+    fats: number;
     createdAt: string;
   };
 

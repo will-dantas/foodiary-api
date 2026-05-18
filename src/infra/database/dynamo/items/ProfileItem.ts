@@ -2,7 +2,7 @@ import { Profile } from "@application/entities/Profile";
 import { AccountItem } from "./AccountItem";
 
 export class ProfileItem {
-  private readonly type = 'Profile';
+  static readonly type = 'Profile';
   private readonly keys: ProfileItem.keys;
 
   constructor(private readonly attr: ProfileItem.Attributes) {
@@ -28,7 +28,8 @@ export class ProfileItem {
       gender: profileItem.gender,
       height: profileItem.height,
       weight: profileItem.weight,
-      actvityLevel: profileItem.actvityLevel,
+      activityLevel: profileItem.activityLevel,
+      goal: profileItem.goal,
       createdAt: new Date(profileItem.createdAt),
     });
   }
@@ -46,7 +47,7 @@ export class ProfileItem {
     return {
       ...this.keys,
       ...this.attr,
-      type: this.type,
+      type: ProfileItem.type,
     };
   }
 }
@@ -64,7 +65,8 @@ export namespace ProfileItem {
     gender: Profile.Gender;
     height: number;
     weight: number;
-    actvityLevel: Profile.ActvityLevel;
+    activityLevel: Profile.ActivityLevel;
+    goal: Profile.Goal;
     createdAt: string;
   };
 

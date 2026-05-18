@@ -1,4 +1,3 @@
-import KSUID from "ksuid";
 import { Controller } from "@application/contracts/Controller";
 import { Injectable } from "@kernel/decorators/Injectable";
 
