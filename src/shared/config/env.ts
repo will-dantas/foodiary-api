@@ -7,7 +7,10 @@ export const schema = z.object({
   COGNITO_POOL_ID: z.string().min(1),
 
   // Database
-  MAIN_TABLE_NAME: z.string().min(1)
+  MAIN_TABLE_NAME: z.string().min(1),
+
+  // Buckets
+  MEALS_BUCKET: z.string().min(1)
 });
 
 export const env = schema.parse(process.env);

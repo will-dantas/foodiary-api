@@ -5,26 +5,31 @@ import { env } from "./env";
 export class AppConfig {
   readonly auth: AppConfig.Auth;
   readonly db: AppConfig.DataBase;
+  readonly storage: AppConfig.Storage;
 
-  constructor() {
-    this.auth = {
-      cognito: {
-        client: {
-          id: env.COGNITO_CLIENT_ID,
-          secret: env.COGNITO_CLIENT_SECRET
-        },
-        pool: {
-          id: env.COGNITO_POOL_ID
-        }
-      }
-    };
-
-    this.db = {
-      dynamodb: {
-        mainTable: env.MAIN_TABLE_NAME
+    constructor() {
+  this.auth = {
+    cognito: {
+      client: {
+        id: env.COGNITO_CLIENT_ID,
+        secret: env.COGNITO_CLIENT_SECRET
+      },
+      pool: {
+        id: env.COGNITO_POOL_ID
       }
     }
+  };
+
+  this.db = {
+    dynamodb: {
+      mainTable: env.MAIN_TABLE_NAME
+    }
+  };
+
+  this.storage = {
+    mealsBucket: env.MEALS_BUCKET
   }
+}
 }
 
 export namespace AppConfig {
@@ -44,5 +49,9 @@ export namespace AppConfig {
     dynamodb: {
       mainTable: string;
     }
+  }
+
+  export type Storage = {
+    mealsBucket: string;
   }
 }

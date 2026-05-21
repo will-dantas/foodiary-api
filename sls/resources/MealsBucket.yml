@@ -1,0 +1,7 @@
+Resources:
+  MealsBucket:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: ${self:service}-${self:provider.stage}-meals-bucket-a9c14e65
+      
