@@ -21,7 +21,7 @@ export class CreateMealController extends Controller<'private', CreateMealContro
        ? Meal.InputType.AUDIO
        : Meal.InputType.PICTURE
     );
-    const { mealId } = await this.createMealUpUseCase.execute({
+    const { mealId, uploadSignature } = await this.createMealUpUseCase.execute({
       accountId,
       file: {
         size: file.size,
@@ -33,6 +33,7 @@ export class CreateMealController extends Controller<'private', CreateMealContro
       statusCode: 201,
       body: {
         mealId,
+        uploadSignature
       }
     }
   }
@@ -41,5 +42,6 @@ export class CreateMealController extends Controller<'private', CreateMealContro
 export namespace CreateMealController {
   export type Response = {
     mealId: string;
+    uploadSignature: string;
   }
 }
