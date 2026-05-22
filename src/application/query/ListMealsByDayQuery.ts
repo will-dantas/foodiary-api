@@ -6,17 +6,20 @@ import { Injectable } from "@kernel/decorators/Injectable";
 import { AppConfig } from "@shared/config/AppConfig";
 
 @Injectable()
-export class ListMealByDayQuery {
+export class ListMealsByDayQuery {
   constructor(
     private readonly config: AppConfig
   ) { }
 
-  async execute({ accountId, date }: ListMealByDayQuery.Input): Promise<ListMealByDayQuery.Output> {
+  async execute({ accountId, date }: ListMealsByDayQuery.Input): Promise<ListMealsByDayQuery.Output> {
+
     const command = new QueryCommand({
       TableName: this.config.db.dynamodb.mainTable,
       IndexName: 'GSI1',
       ProjectionExpression: '#GSI1PK, #id, #name, #foods, #icon, #createdAt',
       KeyConditionExpression: '#GSI1PK = :GSI1PK',
+      FilterExpression: '#status = :status', 
+      ScanIndexForward: false,
       ExpressionAttributeNames: {
         '#GSI1PK': 'GSI1PK',
         '#id': 'id',
@@ -24,19 +27,21 @@ export class ListMealByDayQuery {
         '#foods': 'foods',
         '#icon': 'icon',
         '#createdAt': 'createdAt',
+        '#status': 'status'
       },
       ExpressionAttributeValues: {
         ':GSI1PK': MealItem.getGSI1PK({
           accountId,
           createdAt: date
-        })
+        }),
+        ':status': Meal.Status.SUCCESS,
       }
     });
 
     const { Items = [] } = await dynamoClient.send(command);
-    const items = Items as ListMealByDayQuery.MealItemType[];
+    const items = Items as ListMealsByDayQuery.MealItemType[];
 
-    const meals: ListMealByDayQuery.Output['meals'] = items.map((item) => ({
+    const meals: ListMealsByDayQuery.Output['meals'] = items.map((item) => ({
       id: item.id,
       name: item.name,
       foods: item.foods,
@@ -48,7 +53,7 @@ export class ListMealByDayQuery {
   }
 }
 
-export namespace ListMealByDayQuery {
+export namespace ListMealsByDayQuery {
   export type Input = {
     accountId: string;
     date: Date;
