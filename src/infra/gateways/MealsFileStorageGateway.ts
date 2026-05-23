@@ -21,27 +21,34 @@ export class MealsFileStorageGateway {
   }
 
   async createPOST({
-    fileKey,
-    inputType,
-    fileSize
+    file, mealId
   }: MealsFileStorageGateway.CreatePOSTParams): Promise<MealsFileStorageGateway.CreatePOSTResult> {
     const bucket = this.config.storage.mealsBucket;
-    const contentType = inputType === Meal.InputType.AUDIO ? 'audio/m4a' : 'image/jpeg';
+    const contentType = file.inputType === Meal.InputType.AUDIO ? 'audio/m4a' : 'image/jpeg';
 
     const { url, fields } = await createPresignedPost(s3Client, {
       Bucket: bucket,
-      Key: fileKey,
+      Key: file.key,
       Expires: minutesToSeconds(5),
       Conditions: [
         { bucket },
-        ['eq', '$key', fileKey],
-        ['eq', '$Conten-type', contentType],
-        ['content-length-range', fileSize, fileSize]
-      ]
+        ['eq', '$key', file.key],
+        ['eq', '$Content-Type', contentType],
+        ['content-length-range', file.size, file.size]
+      ],
+      Fields: {
+        'x-amz-meta-mealid': mealId
+      }
     });
 
     const uploadSignature = Buffer.from(
-      JSON.stringify({ url, fields })
+      JSON.stringify({
+        url,
+        fields: {
+          ...fields,
+          'Content-Type': contentType
+        }
+      })
     ).toString('base64');
 
     return {
@@ -57,9 +64,12 @@ export namespace MealsFileStorageGateway {
   };
 
   export type CreatePOSTParams = {
-    fileKey: string;
-    fileSize: number;
-    inputType: Meal.InputType;
+    mealId: string;
+    file: {
+      key: string;
+      size: number;
+      inputType: Meal.InputType;
+    }
   }
 
   export type CreatePOSTResult = {
