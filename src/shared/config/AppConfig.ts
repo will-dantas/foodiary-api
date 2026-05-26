@@ -6,30 +6,35 @@ export class AppConfig {
   readonly auth: AppConfig.Auth;
   readonly db: AppConfig.DataBase;
   readonly storage: AppConfig.Storage;
+  readonly cdn: AppConfig.CDN;
 
-    constructor() {
-  this.auth = {
-    cognito: {
-      client: {
-        id: env.COGNITO_CLIENT_ID,
-        secret: env.COGNITO_CLIENT_SECRET
-      },
-      pool: {
-        id: env.COGNITO_POOL_ID
+  constructor() {
+    this.auth = {
+      cognito: {
+        client: {
+          id: env.COGNITO_CLIENT_ID,
+          secret: env.COGNITO_CLIENT_SECRET
+        },
+        pool: {
+          id: env.COGNITO_POOL_ID
+        }
       }
-    }
-  };
+    };
 
-  this.db = {
-    dynamodb: {
-      mainTable: env.MAIN_TABLE_NAME
-    }
-  };
+    this.db = {
+      dynamodb: {
+        mainTable: env.MAIN_TABLE_NAME
+      }
+    };
 
-  this.storage = {
-    mealsBucket: env.MEALS_BUCKET
+    this.storage = {
+      mealsBucket: env.MEALS_BUCKET
+    }
+
+    this.cdn = {
+      mealsCDN: env.MEALS_CDN_DOMAIN_NAME
+    }
   }
-}
 }
 
 export namespace AppConfig {
@@ -53,5 +58,9 @@ export namespace AppConfig {
 
   export type Storage = {
     mealsBucket: string;
+  }
+
+  export type CDN = {
+    mealsCDN: string;
   }
 }
