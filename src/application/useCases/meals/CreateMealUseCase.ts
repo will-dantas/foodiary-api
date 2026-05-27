@@ -27,11 +27,12 @@ export class CreateMealUpUseCase {
       await this.mealRepository.create(meal),
       await this.mealsFileStorageGateway.createPOST({
         mealId: meal.id,
+        accountId,
         file: {
           key: inputFileKey,
           size: file.size,
           inputType: file.inputType
-        }
+        },
       })
     ]);
 
