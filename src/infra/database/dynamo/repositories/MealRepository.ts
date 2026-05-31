@@ -1,5 +1,5 @@
 import { Meal } from "@application/entities/Meal";
-import { GetCommand, PutCommand, PutCommandInput, QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, PutCommand, PutCommandInput, QueryCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { Injectable } from "@kernel/decorators/Injectable";
 import { AppConfig } from "@shared/config/AppConfig";
 import { MealItem } from "../items/MealItem";
@@ -25,6 +25,37 @@ export class MealRepository {
     }
 
     return MealItem.toEntity(mealItem as MealItem.ItemType);
+  }
+
+
+  async save(profile: Meal): Promise<void> {
+    const profileItem = MealItem.fromEntity(profile).toItem();
+
+    const command = new UpdateCommand({
+      TableName: this.config.db.dynamodb.mainTable,
+      Key: {
+        PK: profileItem.PK,
+        SK: profileItem.SK,
+      },
+      UpdateExpression: 'SET #status = :status, #attempts = :attempts, #name = :name, #icon = :icon, #foods = :foods',
+      ExpressionAttributeNames: {
+        '#status': 'status',
+        '#attempts': 'attempts',
+        '#name': 'name',
+        '#icon': 'icon',
+        '#foods': 'foods',
+      },
+      ExpressionAttributeValues: {
+        ':status': profileItem.status,
+        ':attempts': profileItem.attempts,
+        ':name': profileItem.name,
+        ':icon': profileItem.icon,
+        ':foods': profileItem.foods,
+      },
+      ReturnValues: 'NONE'
+    });
+
+    await dynamoClient.send(command);
   }
 
   getPutCommandInput(meal: Meal): PutCommandInput {
