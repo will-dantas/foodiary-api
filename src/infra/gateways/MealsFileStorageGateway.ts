@@ -22,7 +22,7 @@ export class MealsFileStorageGateway {
   }
 
   getFileURL(fileKey: string) {
-    return `https://${this.config.cdn.mealsCDN}/${fileKey}`;
+    return `https://${this.config.cdns.mealsCDN}/${fileKey}`;
   }
 
   async createPOST({
