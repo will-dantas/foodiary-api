@@ -6,7 +6,8 @@ export class AppConfig {
   readonly auth: AppConfig.Auth;
   readonly db: AppConfig.DataBase;
   readonly storage: AppConfig.Storage;
-  readonly cdn: AppConfig.CDN;
+  readonly cdns: AppConfig.CDNS;
+  readonly queues: AppConfig.Queues;
 
   constructor() {
     this.auth = {
@@ -31,8 +32,12 @@ export class AppConfig {
       mealsBucket: env.MEALS_BUCKET
     }
 
-    this.cdn = {
+    this.cdns = {
       mealsCDN: env.MEALS_CDN_DOMAIN_NAME
+    }
+
+    this.queues = {
+      mealsQueueUrl: env.MEALS_QUEUE_URL
     }
   }
 }
@@ -60,7 +65,11 @@ export namespace AppConfig {
     mealsBucket: string;
   }
 
-  export type CDN = {
+  export type CDNS = {
     mealsCDN: string;
+  }
+
+  export type Queues = {
+    mealsQueueUrl: string;
   }
 }
