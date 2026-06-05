@@ -6,12 +6,15 @@ import { Controller } from "@application/contracts/Controller";
 import { lambdaErrorResponse } from "@main/utils/lambdaErrorResponse";
 import { lambdaBodyParser } from "@main/utils/lambdaBodyParser";
 import { ApplicationError } from "@application/errors/application/ApplicationError";
+import { Constructor } from '@shared/types/constructor';
+import { Registry } from "@kernel/di/Registry";
 
 type Event = APIGatewayProxyEventV2 | APIGatewayProxyEventV2WithJWTAuthorizer;
 
-export function lambdaHttpAdapter(controller: Controller<any, unknown>) {
+export function lambdaHttpAdapter(controllerImpl: Constructor<Controller<any, unknown>>) {
   return async (event: Event): Promise<APIGatewayProxyResultV2> => {
     try {
+      const controller = Registry.getInstance().resolve(controllerImpl);
       const body = lambdaBodyParser(event.body);
       const params = event.pathParameters ?? {};
       const queryParams = event.queryStringParameters ?? {};

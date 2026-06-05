@@ -3,7 +3,7 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 const API_URL = 'https://api.easilytech.com.br/meals';
-const TOKEN = 'eyJraWQiOiJXd0sxZGFZMDdld0FHTWxmN3pQSVhHaG1mdVE0MkJwZml6ZTAyWFlJalZjPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI3NGU4YjQ4OC1jMDUxLTcwZTgtODRlZS05MGEyOGFmYjQ4ZGUiLCJpc3MiOiJodHRwczovL2NvZ25pdG8taWRwLnVzLWVhc3QtMS5hbWF6b25hd3MuY29tL3VzLWVhc3QtMV9pdWlYVk1STXAiLCJjbGllbnRfaWQiOiI3dXY1dHFwbjZlcG1nb3FlYjBzZXZtbGxhaiIsIm9yaWdpbl9qdGkiOiI3MTdjNDM5OS1kZTI0LTQwNGMtYjMwZS05OGIxZTEzYjVhZTgiLCJpbnRlcm5hbElkIjoiM0R5SnV3ZzBPa3g4d0hyOW94UGR3YjNFTEJaIiwiZXZlbnRfaWQiOiI3ODVjZTZlNS00YmI0LTQwNWUtODMzMC1lM2IwNmFiZTQ0MjEiLCJ0b2tlbl91c2UiOiJhY2Nlc3MiLCJzY29wZSI6ImF3cy5jb2duaXRvLnNpZ25pbi51c2VyLmFkbWluIiwiYXV0aF90aW1lIjoxNzgwMjU3MTYzLCJleHAiOjE3ODAzMDAzNjMsImlhdCI6MTc4MDI1NzE2MywianRpIjoiOWIzMTMxM2QtMTUzOS00ZGM5LTllZjgtM2EzNzM5ODU1ZmY3IiwidXNlcm5hbWUiOiI3NGU4YjQ4OC1jMDUxLTcwZTgtODRlZS05MGEyOGFmYjQ4ZGUifQ.jgmz9h5bS5AhqB83sUkRX1O1sjjMrelj1e46QPwsozASF-H_mxd5rysoRRnoyXF2wEk59OWFwMcrvPwq8OtcOsh1Xe3jaV3-fYDSfBVPscQ4Fk6SHI7WeNTFL-XsCMBDVvIyTX7Tw5ybkbvsMqXlenWYqakTE0b2L08xPpSTCYgsSlzuUH6eQyJ6wce0jiGpeT1zKqQuGTNDr8R6OynKiBpYe9JD-MFIZJM-bJNFm1uUWllzosxa4KZ6kzteP7bpGuO8bpQ_J5kP8lS6QPT1ltCPv_YgRAe4nmOSW_e5AoJVI_UIy1J05RWogHj3mlv8jkWdcKVBzBhqb24IcJbv1g';
+const TOKEN = '';
 
 interface IPresignResponse {
   uploadSignature: string;
@@ -99,6 +99,6 @@ async function uploadFile(filePath: string, fileType: 'audio/m4a' | 'image/jpeg'
 }
 
 uploadFile(
-  path.resolve(__dirname, 'assets', './cover.jpeg'),
+  path.resolve(__dirname, 'assets', './refeicao.png'),
   'image/jpeg',
 ).catch(() => process.exit(1));
